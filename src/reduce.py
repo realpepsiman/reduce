@@ -13,7 +13,10 @@ def reduce(f: Callable[[A], B], x: list[A]) -> B:
     6
     """
     assert len(x) >= 2
-    ...  # FIXME
+    y = x[0]
+    for i in range(1, len(x)):
+        y = f(y, x[i])
+    return y
 
 
 def accumulate(f: Callable[[A], A], x: list[A]) -> list[A]:
@@ -23,4 +26,7 @@ def accumulate(f: Callable[[A], A], x: list[A]) -> list[A]:
     >>> accumulate(lambda x,y: x+y, [1, 2, 3])
     [1, 3, 6]
     """
-    ...  # FIXME
+    y = [x[0]]
+    for i in range(len(x)-1):
+        y.append(f(y[i], x[i+1]))
+    return y
